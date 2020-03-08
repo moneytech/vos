@@ -38,24 +38,27 @@ string v_build_date()
 string tos(byte *s, int len)
 {
     string str = {
-        .str = s,
-        .len = len};
+        .len = len,
+        .str = s
+    };
     return str;
 }
 
 string tos2(byte *s)
 {
     string str = {
-        .str = s,
-        .len = strlen(s)};
+        .len = strlen(s),
+        .str = s
+    };
     return str;
 }
 
 string tos3(char *s)
 {
     string str = {
-        .str = (byte *)s,
-        .len = strlen((byte *)s)};
+        .len = strlen((byte *)s),
+        .str = (byte *)s
+    };
     return str;
 }
 
@@ -105,7 +108,7 @@ int v_itoa(uint64_t value, byte radix, bool uppercase, bool unsig, bool unpad, c
     }
 }
 
-#define V_STR_SLOT_NUM 8
+#define V_STR_SLOT_NUM 16
 #define V_STR_SLOT_SIZE 1024
 #define V_STR_PUT(C)           \
     if (idx < V_STR_SLOT_SIZE) \
@@ -202,8 +205,9 @@ string v_sprintf(const char *fmt, ...)
     }
 end:;
     string str = {
-        .str = strptr,
-        .len = strlen(strptr)};
+        .len = strlen(strptr),
+        .str = strptr
+    };
 
     if (str_internal_slot++ == V_STR_SLOT_NUM)
     {
@@ -269,6 +273,22 @@ const char *strstr(const char *in, const char *substring)
     return 0;
 }
 
+void memset16(u16 *s, u16 c, int sz)
+{
+    for (int i = 0; i < sz; i++)
+    {
+        s[i] = c;
+    }
+}
+
+void memset32(u32 *s, u32 c, int sz)
+{
+    for (int i = 0; i < sz; i++)
+    {
+        s[i] = c;
+    }
+}
+
 void memset(char *s, char c, int sz)
 {
     uint32_t *p;
@@ -305,7 +325,8 @@ void memset(char *s, char c, int sz)
 
 void memcpy(void *desti, void *srci, int length)
 {
-    if (length == 0 || desti == srci) {
+    if (length == 0 || desti == srci)
+    {
         return desti;
     }
 
@@ -335,7 +356,9 @@ void memcpy(void *desti, void *srci, int length)
                 *(dest++) = *(src++);
             } while (--n > 0);
         }
-    } else {
+    }
+    else
+    {
         int n = (length + 7) / 8;
         char *dest = desti + length, *src = srci + length;
         switch (length % 8)

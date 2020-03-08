@@ -4,8 +4,8 @@ module builtin
 
 pub struct C.string {
 pub:
-	str byteptr
 	len int
+	str byteptr
 }
 
 fn C.v_version() string
@@ -23,6 +23,10 @@ fn C.strlen(s byteptr) int
 fn C.strstr(s byteptr) voidptr
 
 fn C.memset(s voidptr, val byte, len int)
+
+fn C.memset16(s voidptr, val u16, len int)
+
+fn C.memset32(s voidptr, val u32, len int)
 
 fn C.memcpy(dest, src voidptr, len int)
 
